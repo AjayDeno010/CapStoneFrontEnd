@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iGG9uHjp0UKLudZqOW+78/bYgpNUF+Tt4qU" crossorigin="anonymous">
+    <style>
+        body {
+            padding: 20px;
+        }
+
+        .seat {
+            width: 40px;
+            height: 40px;
+            margin: 5px;
+            background-color: #ddd;
+            display: inline-block;
+            text-align: center;
+            line-height: 40px;
+            cursor: pointer;
+        }
+
+        .seat.selected {
+            background-color: #28a745;
+            color: #fff;
+        }
+    </style>
+    <title>Bus Seat Booking</title>
+</head>
+<body>
+
+<div class="container">
+    <h2 class="mt-4 mb-4">Bus Seat Booking</h2>
+    <div id="seats-container">
+        <!-- Seats will be dynamically generated here -->
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pzjw8s+nbka1pLXRcu4LScvKef/Ea02mFXjPyq0F/7fFZzIiY6u8Ve7YsBzU1b9Q" crossorigin="anonymous"></script>
+<script>
+    // Number of seats in a row
+    const seatsPerRow = 8;
+
+    // Total number of rows
+    const totalRows = 5;
+
+    // Function to create seats dynamically
+    function createSeats() {
+        const seatsContainer = document.getElementById('seats-container');
+
+        for (let row = 1; row <= totalRows; row++) {
+            const rowDiv = document.createElement('div');
+            rowDiv.className = 'mb-3';
+
+            for (let seatNumber = 1; seatNumber <= seatsPerRow; seatNumber++) {
+                const seat = document.createElement('div');
+                seat.className = 'seat';
+                seat.innerText = (row - 1) * seatsPerRow + seatNumber; // Calculate seat number
+
+                // Add click event to toggle seat selection
+                seat.addEventListener('click', () => {
+                    seat.classList.toggle('selected');
+                });
+
+                rowDiv.appendChild(seat);
+
+                // Stop creating seats if we reach the target seat number (40)
+                if ((row - 1) * seatsPerRow + seatNumber === 40) {
+                    seatsContainer.appendChild(rowDiv);
+                    return;
+                }
+            }
+
+            seatsContainer.appendChild(rowDiv);
+        }
+    }
+
+    // Call the function to create seats
+    createSeats();
+</script>
+</body>
+</html>
